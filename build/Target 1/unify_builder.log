@@ -1,0 +1,81 @@
+[2025-12-14 17:32:45]	[info] incremental build: 41 source files changed
+These source files will be recompiled
+---
+'c:\Users\JUNLI\Desktop\C_work\stm32\Hideware\AD.c': object (.o) file not exist
+'c:\Users\JUNLI\Desktop\C_work\stm32\Hideware\CountSensor.c': object (.o) file not exist
+'c:\Users\JUNLI\Desktop\C_work\stm32\Hideware\DMA.c': object (.o) file not exist
+'c:\Users\JUNLI\Desktop\C_work\stm32\Hideware\DMA_ADC.c': object (.o) file not exist
+'c:\Users\JUNLI\Desktop\C_work\stm32\Hideware\Encoder.c': object (.o) file not exist
+'c:\Users\JUNLI\Desktop\C_work\stm32\Hideware\InputCompare.c': object (.o) file not exist
+'c:\Users\JUNLI\Desktop\C_work\stm32\Hideware\Key.c': object (.o) file not exist
+'c:\Users\JUNLI\Desktop\C_work\stm32\Hideware\LED.c': object (.o) file not exist
+'c:\Users\JUNLI\Desktop\C_work\stm32\Hideware\OLED.c': object (.o) file not exist
+'c:\Users\JUNLI\Desktop\C_work\stm32\Hideware\PWM.c': object (.o) file not exist
+'c:\Users\JUNLI\Desktop\C_work\stm32\Hideware\PWMIC.c': object (.o) file not exist
+'c:\Users\JUNLI\Desktop\C_work\stm32\Library\misc.c': object (.o) file not exist
+'c:\Users\JUNLI\Desktop\C_work\stm32\Library\stm32f10x_adc.c': object (.o) file not exist
+'c:\Users\JUNLI\Desktop\C_work\stm32\Library\stm32f10x_bkp.c': object (.o) file not exist
+'c:\Users\JUNLI\Desktop\C_work\stm32\Library\stm32f10x_can.c': object (.o) file not exist
+'c:\Users\JUNLI\Desktop\C_work\stm32\Library\stm32f10x_cec.c': object (.o) file not exist
+'c:\Users\JUNLI\Desktop\C_work\stm32\Library\stm32f10x_crc.c': object (.o) file not exist
+'c:\Users\JUNLI\Desktop\C_work\stm32\Library\stm32f10x_dac.c': object (.o) file not exist
+'c:\Users\JUNLI\Desktop\C_work\stm32\Library\stm32f10x_dbgmcu.c': object (.o) file not exist
+'c:\Users\JUNLI\Desktop\C_work\stm32\Library\stm32f10x_dma.c': object (.o) file not exist
+'c:\Users\JUNLI\Desktop\C_work\stm32\Library\stm32f10x_exti.c': object (.o) file not exist
+'c:\Users\JUNLI\Desktop\C_work\stm32\Library\stm32f10x_flash.c': object (.o) file not exist
+'c:\Users\JUNLI\Desktop\C_work\stm32\Library\stm32f10x_fsmc.c': object (.o) file not exist
+'c:\Users\JUNLI\Desktop\C_work\stm32\Library\stm32f10x_gpio.c': object (.o) file not exist
+'c:\Users\JUNLI\Desktop\C_work\stm32\Library\stm32f10x_i2c.c': object (.o) file not exist
+'c:\Users\JUNLI\Desktop\C_work\stm32\Library\stm32f10x_iwdg.c': object (.o) file not exist
+'c:\Users\JUNLI\Desktop\C_work\stm32\Library\stm32f10x_pwr.c': object (.o) file not exist
+'c:\Users\JUNLI\Desktop\C_work\stm32\Library\stm32f10x_rcc.c': object (.o) file not exist
+'c:\Users\JUNLI\Desktop\C_work\stm32\Library\stm32f10x_rtc.c': object (.o) file not exist
+'c:\Users\JUNLI\Desktop\C_work\stm32\Library\stm32f10x_sdio.c': object (.o) file not exist
+'c:\Users\JUNLI\Desktop\C_work\stm32\Library\stm32f10x_spi.c': object (.o) file not exist
+'c:\Users\JUNLI\Desktop\C_work\stm32\Library\stm32f10x_tim.c': object (.o) file not exist
+'c:\Users\JUNLI\Desktop\C_work\stm32\Library\stm32f10x_usart.c': object (.o) file not exist
+'c:\Users\JUNLI\Desktop\C_work\stm32\Library\stm32f10x_wwdg.c': object (.o) file not exist
+'c:\Users\JUNLI\Desktop\C_work\stm32\System\Delay.c': object (.o) file not exist
+'c:\Users\JUNLI\Desktop\C_work\stm32\System\Timer.c': object (.o) file not exist
+'c:\Users\JUNLI\Desktop\C_work\stm32\User\main.c': object (.o) file not exist
+'c:\Users\JUNLI\Desktop\C_work\stm32\User\stm32f10x_it.c': object (.o) file not exist
+'c:\Users\JUNLI\Desktop\C_work\stm32\start\core_cm3.c': object (.o) file not exist
+'c:\Users\JUNLI\Desktop\C_work\stm32\start\startup_stm32f10x_md.s': object (.o) file not exist
+'c:\Users\JUNLI\Desktop\C_work\stm32\start\system_stm32f10x.c': object (.o) file not exist
+
+[2025-12-14 17:32:50]	compilation failed at : "c:\Users\JUNLI\Desktop\C_work\stm32\User\main.c", exit code: 1
+command: 
+  "d:\Keil_v5\ARM\ARMCC\bin\armcc.exe" -c --apcs=interwork -I. -Istart -IUser -ILibrary -ISystem -IListings -IHideware -I.cmsis/include -I"RTE/_Target 1" -D"USE_STDPERIPH_DRIVER" --cpu Cortex-M3 --li --c99 -O0 --split_sections --diag_suppress=1 --diag_suppress=1295 -g -o ".\build\Target 1\.obj\User\main.o" --no_depend_system_headers --depend ".\build\Target 1\.obj\User\main.d" .\User\main.c
+   at unify_builder.Program.compileByMulThread(Int32 thrNum, CmdInfo[] cmds_, List`1 errLogs)
+   at unify_builder.Program.Main(String[] args_)
+---
+".\User\main.c", line 33: Warning:  #174-D: expression has no effect
+  		2
+  		^
+".\User\main.c", line 35: Error:  #65: expected a ";"
+  		Delay_ms(100);							//延时100ms，手动增加一些转换的间隔时间
+  		^
+.\User\main.c: 1 warning, 1 error
+
+[2025-12-14 17:33:14]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'c:\Users\JUNLI\Desktop\C_work\stm32\User\main.c': object (.o) file not exist
+
+[2025-12-14 17:33:14]	[done]
+	build successfully !
+
+[2025-12-14 17:35:48]	[done]
+	build successfully !
+
+[2025-12-14 17:36:59]	[done]
+	build successfully !
+
+[2025-12-14 17:38:30]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'c:\Users\JUNLI\Desktop\C_work\stm32\User\main.c': source file has been changed.
+
+[2025-12-14 17:38:31]	[done]
+	build successfully !
+

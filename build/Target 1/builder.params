@@ -1,0 +1,142 @@
+{
+    "name": "First",
+    "target": "Target 1",
+    "toolchain": "AC5",
+    "toolchainLocation": "d:\\Keil_v5\\ARM\\ARMCC",
+    "toolchainCfgFile": "c:\\Users\\JUNLI\\.vscode\\extensions\\cl.eide-3.26.1\\res\\data\\models/arm.v5.model.json",
+    "buildMode": "fast|multhread",
+    "showRepathOnLog": true,
+    "threadNum": 8,
+    "rootDir": "c:\\Users\\JUNLI\\Desktop\\C_work\\stm32",
+    "dumpPath": "build\\Target 1",
+    "outDir": "build\\Target 1",
+    "ram": 20480,
+    "rom": 65536,
+    "incDirs": [
+        ".",
+        "start",
+        "User",
+        "Library",
+        "System",
+        "Listings",
+        "Hideware",
+        ".cmsis/include",
+        "RTE/_Target 1"
+    ],
+    "libDirs": [],
+    "defines": [
+        "USE_STDPERIPH_DRIVER"
+    ],
+    "sourceList": [
+        "Hideware/AD.c",
+        "Hideware/CountSensor.c",
+        "Hideware/DMA.c",
+        "Hideware/DMA_ADC.c",
+        "Hideware/Encoder.c",
+        "Hideware/InputCompare.c",
+        "Hideware/Key.c",
+        "Hideware/LED.c",
+        "Hideware/OLED.c",
+        "Hideware/PWM.c",
+        "Hideware/PWMIC.c",
+        "Library/misc.c",
+        "Library/stm32f10x_adc.c",
+        "Library/stm32f10x_bkp.c",
+        "Library/stm32f10x_can.c",
+        "Library/stm32f10x_cec.c",
+        "Library/stm32f10x_crc.c",
+        "Library/stm32f10x_dac.c",
+        "Library/stm32f10x_dbgmcu.c",
+        "Library/stm32f10x_dma.c",
+        "Library/stm32f10x_exti.c",
+        "Library/stm32f10x_flash.c",
+        "Library/stm32f10x_fsmc.c",
+        "Library/stm32f10x_gpio.c",
+        "Library/stm32f10x_i2c.c",
+        "Library/stm32f10x_iwdg.c",
+        "Library/stm32f10x_pwr.c",
+        "Library/stm32f10x_rcc.c",
+        "Library/stm32f10x_rtc.c",
+        "Library/stm32f10x_sdio.c",
+        "Library/stm32f10x_spi.c",
+        "Library/stm32f10x_tim.c",
+        "Library/stm32f10x_usart.c",
+        "Library/stm32f10x_wwdg.c",
+        "System/Delay.c",
+        "System/Timer.c",
+        "User/main.c",
+        "User/stm32f10x_it.c",
+        "start/core_cm3.c",
+        "start/startup_stm32f10x_md.s",
+        "start/system_stm32f10x.c"
+    ],
+    "alwaysInBuildSources": [],
+    "sourceParams": {},
+    "options": {
+        "version": 4,
+        "afterBuildTasks": [
+            {
+                "name": "axf to elf",
+                "command": "axf2elf -d \"${ToolchainRoot}\" -i \"${OutDir}/${ProjectName}.axf\" -o \"${OutDir}/${ProjectName}.elf\" > \"${OutDir}/axf2elf.log\""
+            }
+        ],
+        "asm-compiler": {},
+        "beforeBuildTasks": [],
+        "c/cpp-compiler": {
+            "CXX_FLAGS": "--diag_suppress=1 --diag_suppress=1295",
+            "C_FLAGS": "--diag_suppress=1 --diag_suppress=1295",
+            "c99-mode": true,
+            "one-elf-section-per-function": true,
+            "optimization": "level-0",
+            "warnings": "all-warnings"
+        },
+        "global": {
+            "output-debug-info": "enable",
+            "use-microLIB": false,
+            "microcontroller-cpu": "cortex-m3",
+            "microcontroller-fpu": "cortex-m3",
+            "microcontroller-float": "cortex-m3",
+            "$arch-extensions": "",
+            "$clang-arch-extensions": "",
+            "$armlink-arch-extensions": ""
+        },
+        "linker": {
+            "$outputTaskExcludes": [
+                ".bin"
+            ],
+            "output-format": "elf",
+            "ro-base": "0x08000000",
+            "rw-base": "0x20000000",
+            "xo-base": "",
+            "link-scatter": [
+                "\"c:/Users/JUNLI/Desktop/C_work/stm32/build/Target 1/First.sct\""
+            ]
+        }
+    },
+    "env": {
+        "KEIL_OUTPUT_DIR": "Objects",
+        "workspaceFolder": "c:\\Users\\JUNLI\\Desktop\\C_work\\stm32",
+        "workspaceFolderBasename": "stm32",
+        "OutDir": "c:\\Users\\JUNLI\\Desktop\\C_work\\stm32\\build\\Target 1",
+        "OutDirRoot": "build",
+        "OutDirBase": "build\\Target 1",
+        "ProjectName": "First",
+        "ConfigName": "Target 1",
+        "ProjectRoot": "c:\\Users\\JUNLI\\Desktop\\C_work\\stm32",
+        "ExecutableName": "c:\\Users\\JUNLI\\Desktop\\C_work\\stm32\\build\\Target 1\\First",
+        "ChipPackDir": ".pack/Keil/STM32F1xx_DFP.2.3.0",
+        "ChipName": "",
+        "SYS_Platform": "win32",
+        "SYS_DirSep": "\\",
+        "SYS_DirSeparator": "\\",
+        "SYS_PathSep": ";",
+        "SYS_PathSeparator": ";",
+        "SYS_EOL": "\r\n",
+        "EIDE_BUILDER_DIR": "c:\\Users\\JUNLI\\.vscode\\extensions\\cl.eide-3.26.1\\res\\tools\\win32\\unify_builder",
+        "EIDE_BINARIES_VER": "12.1.1",
+        "EIDE_MSYS": "C:\\Users\\JUNLI\\.eide\\bin\\builder\\msys\\bin",
+        "EIDE_PY3_CMD": "C:\\Users\\JUNLI\\.eide\\bin\\python36\\python3.exe",
+        "ToolchainRoot": "d:\\Keil_v5\\ARM\\ARMCC"
+    },
+    "sysPaths": []
+}

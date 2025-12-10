@@ -1,0 +1,9 @@
+{
+  "C_Cpp.intelliSenseEngine": "Default",
+  "C_Cpp.autocomplete": "Default",
+  "C_Cpp.default.configurationProvider": "ms-vscode.cpptools",
+  "files.associations": {
+    "*.c": "c",
+    "*.h": "c"
+  }
+}
