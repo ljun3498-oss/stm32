@@ -1,40 +1,4 @@
 {
-  "configurations": [
-    {
-      "name": "STM32",
-      "includePath": [
-        "${workspaceFolder}/**",
-        "${workspaceFolder}/Hideware",
-        "${workspaceFolder}/Library",
-        "${workspaceFolder}/User",
-        "${workspaceFolder}/start",
-        "${workspaceFolder}/System"
-      ],
-      "defines": [
-        "USE_STDPERIPH_DRIVER",
-        "STM32F10X_MD",
-        "__CC_ARM",
-        "__ARMCC_VERSION=5060000"
-      ],
-      "compilerPath": "C:/Keil_v5/ARM/ARMCC/bin/armcc.exe",
-      "cStandard": "c11",
-      "cppStandard": "c++17",
-      "intelliSenseMode": "gcc-arm",
-      "browse": {
-        "path": [
-          "${workspaceFolder}/Hideware",
-          "${workspaceFolder}/Library",
-          "${workspaceFolder}/User",
-          "${workspaceFolder}/start",
-          "${workspaceFolder}/System"
-        ],
-        "limitSymbolsToIncludedHeaders": true,
-        "databaseFilename": "${workspaceFolder}/.vscode/browse.vc.db"
-      }
-    }
-  ],
-  "version": 4
-}{
     "configurations": [
         {
             "name": "Keil ARM",
@@ -44,10 +8,14 @@
                 "${workspaceFolder}/Hideware",
                 "${workspaceFolder}/Library",
                 "${workspaceFolder}/start",
-                "${workspaceFolder}/System",
-                "${workspaceFolder}/RTE_Components.h"
+                "${workspaceFolder}/System"
             ],
-            "defines": [],
+            "defines": [
+                "USE_STDPERIPH_DRIVER",
+                "STM32F10X_MD",
+                "__CC_ARM",
+                "__ARMCC_VERSION=5060000"
+            ],
             "compilerPath": "d:/Keil_v5/ARM/ARMCC/bin/armcc.exe",
             "cStandard": "c11",
             "cppStandard": "c++17",
@@ -56,7 +24,9 @@
                 "path": [
                     "${workspaceFolder}/User",
                     "${workspaceFolder}/Hideware",
-                    "${workspaceFolder}/Library"
+                    "${workspaceFolder}/Library",
+                    "${workspaceFolder}/start",
+                    "${workspaceFolder}/System"
                 ],
                 "limitSymbolsToIncludedHeaders": false
             }

@@ -11,7 +11,8 @@
 #include "InputCompare.h"
 #include "DMA_ADC.H"
 
-//1
+//git 到vscode测试1
+
 int main(void)
 {
 	/*模块初始化*/
@@ -23,6 +24,7 @@ int main(void)
 	OLED_ShowString(2, 1, "AD1:");
 	OLED_ShowString(3, 1, "AD2:");
 	OLED_ShowString(4, 1, "AD3:");
+
 	
 	while (1)
 	{

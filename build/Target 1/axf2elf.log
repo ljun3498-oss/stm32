@@ -1,4 +1,4 @@
-arm-none-eabi-objcopy --update-section ER_IROM1="C:\Users\JUNLI\AppData\Local\Temp\\First_SJhHmFD/.bin" "c:\Users\JUNLI\Desktop\C_work\stm32\build\Target 1/First.axf" "c:\Users\JUNLI\Desktop\C_work\stm32\build\Target 1/First.elf"
+arm-none-eabi-objcopy --update-section ER_IROM1="C:\Users\JUNLI\AppData\Local\Temp\\First_/O4LkelK.bin" "c:\Users\JUNLI\Desktop\C_work\stm32\build\Target 1/First.axf" "c:\Users\JUNLI\Desktop\C_work\stm32\build\Target 1/First.elf"
 
 arm-none-eabi-objcopy: c:\Users\JUNLI\Desktop\C_work\stm32\build\Target 1/First.elf: warning: allocated section `RW_IRAM1' not in segment
 
