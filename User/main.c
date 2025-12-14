@@ -11,8 +11,7 @@
 #include "InputCompare.h"
 #include "DMA_ADC.H"
 
-//git 到vscode测试1
-
+//1
 int main(void)
 {
 	/*模块初始化*/
