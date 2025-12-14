@@ -91,3 +91,12 @@ These source files will be recompiled
 [2025-12-14 17:49:56]	[done]
 	build successfully !
 
+[2025-12-14 18:02:40]	[info] incremental build: 2 source files changed
+These source files will be recompiled
+---
+'c:\Users\JUNLI\Desktop\C_work\stm32\Hideware\AD.c': source file has been changed.
+'c:\Users\JUNLI\Desktop\C_work\stm32\User\main.c': source file has been changed.
+
+[2025-12-14 18:02:41]	[done]
+	build successfully !
+

@@ -11,7 +11,7 @@
 #include "InputCompare.h"
 #include "DMA_ADC.H"
 
-//1
+//3
 int main(void)
 {
 	/*模块初始化*/
