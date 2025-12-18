@@ -124,3 +124,51 @@ These source files will be recompiled
 [2025-12-17 22:07:14]	[done]
 	build successfully !
 
+[2025-12-18 22:26:52]	[info] incremental build: 41 source files changed
+These source files will be recompiled
+---
+'c:\Users\JUNLI\Desktop\C_work\stm32\Hideware\AD.c': compiler options has been changed.
+'c:\Users\JUNLI\Desktop\C_work\stm32\Hideware\CountSensor.c': compiler options has been changed.
+'c:\Users\JUNLI\Desktop\C_work\stm32\Hideware\DMA.c': compiler options has been changed.
+'c:\Users\JUNLI\Desktop\C_work\stm32\Hideware\DMA_ADC.c': compiler options has been changed.
+'c:\Users\JUNLI\Desktop\C_work\stm32\Hideware\Encoder.c': source file has been changed.
+'c:\Users\JUNLI\Desktop\C_work\stm32\Hideware\InputCompare.c': compiler options has been changed.
+'c:\Users\JUNLI\Desktop\C_work\stm32\Hideware\Key.c': compiler options has been changed.
+'c:\Users\JUNLI\Desktop\C_work\stm32\Hideware\LED.c': compiler options has been changed.
+'c:\Users\JUNLI\Desktop\C_work\stm32\Hideware\OLED.c': compiler options has been changed.
+'c:\Users\JUNLI\Desktop\C_work\stm32\Hideware\PWM.c': compiler options has been changed.
+'c:\Users\JUNLI\Desktop\C_work\stm32\Hideware\PWMIC.c': compiler options has been changed.
+'c:\Users\JUNLI\Desktop\C_work\stm32\Library\misc.c': compiler options has been changed.
+'c:\Users\JUNLI\Desktop\C_work\stm32\Library\stm32f10x_adc.c': compiler options has been changed.
+'c:\Users\JUNLI\Desktop\C_work\stm32\Library\stm32f10x_bkp.c': compiler options has been changed.
+'c:\Users\JUNLI\Desktop\C_work\stm32\Library\stm32f10x_can.c': compiler options has been changed.
+'c:\Users\JUNLI\Desktop\C_work\stm32\Library\stm32f10x_cec.c': compiler options has been changed.
+'c:\Users\JUNLI\Desktop\C_work\stm32\Library\stm32f10x_crc.c': compiler options has been changed.
+'c:\Users\JUNLI\Desktop\C_work\stm32\Library\stm32f10x_dac.c': compiler options has been changed.
+'c:\Users\JUNLI\Desktop\C_work\stm32\Library\stm32f10x_dbgmcu.c': compiler options has been changed.
+'c:\Users\JUNLI\Desktop\C_work\stm32\Library\stm32f10x_dma.c': compiler options has been changed.
+'c:\Users\JUNLI\Desktop\C_work\stm32\Library\stm32f10x_exti.c': compiler options has been changed.
+'c:\Users\JUNLI\Desktop\C_work\stm32\Library\stm32f10x_flash.c': compiler options has been changed.
+'c:\Users\JUNLI\Desktop\C_work\stm32\Library\stm32f10x_fsmc.c': compiler options has been changed.
+'c:\Users\JUNLI\Desktop\C_work\stm32\Library\stm32f10x_gpio.c': compiler options has been changed.
+'c:\Users\JUNLI\Desktop\C_work\stm32\Library\stm32f10x_i2c.c': compiler options has been changed.
+'c:\Users\JUNLI\Desktop\C_work\stm32\Library\stm32f10x_iwdg.c': compiler options has been changed.
+'c:\Users\JUNLI\Desktop\C_work\stm32\Library\stm32f10x_pwr.c': compiler options has been changed.
+'c:\Users\JUNLI\Desktop\C_work\stm32\Library\stm32f10x_rcc.c': compiler options has been changed.
+'c:\Users\JUNLI\Desktop\C_work\stm32\Library\stm32f10x_rtc.c': compiler options has been changed.
+'c:\Users\JUNLI\Desktop\C_work\stm32\Library\stm32f10x_sdio.c': compiler options has been changed.
+'c:\Users\JUNLI\Desktop\C_work\stm32\Library\stm32f10x_spi.c': compiler options has been changed.
+'c:\Users\JUNLI\Desktop\C_work\stm32\Library\stm32f10x_tim.c': compiler options has been changed.
+'c:\Users\JUNLI\Desktop\C_work\stm32\Library\stm32f10x_usart.c': compiler options has been changed.
+'c:\Users\JUNLI\Desktop\C_work\stm32\Library\stm32f10x_wwdg.c': compiler options has been changed.
+'c:\Users\JUNLI\Desktop\C_work\stm32\System\Delay.c': compiler options has been changed.
+'c:\Users\JUNLI\Desktop\C_work\stm32\System\Timer.c': compiler options has been changed.
+'c:\Users\JUNLI\Desktop\C_work\stm32\User\main.c': compiler options has been changed.
+'c:\Users\JUNLI\Desktop\C_work\stm32\User\stm32f10x_it.c': compiler options has been changed.
+'c:\Users\JUNLI\Desktop\C_work\stm32\start\core_cm3.c': compiler options has been changed.
+'c:\Users\JUNLI\Desktop\C_work\stm32\start\startup_stm32f10x_md.s': compiler options has been changed.
+'c:\Users\JUNLI\Desktop\C_work\stm32\start\system_stm32f10x.c': compiler options has been changed.
+
+[2025-12-18 22:26:57]	[done]
+	build successfully !
+

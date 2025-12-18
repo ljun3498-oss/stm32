@@ -2,8 +2,8 @@
     "name": "First",
     "target": "Target 1",
     "toolchain": "AC5",
-    "toolchainLocation": "d:\\Keil_v5\\ARM\\ARMCC",
-    "toolchainCfgFile": "c:\\Users\\JUNLI\\.vscode\\extensions\\cl.eide-3.26.1\\res\\data\\models/arm.v5.model.json",
+    "toolchainLocation": "D:\\Keil_v5\\ARM\\ARMCC",
+    "toolchainCfgFile": "c:\\Users\\JUNLI\\.trae-cn\\extensions\\cl.eide-3.26.1-universal\\res\\data\\models/arm.v5.model.json",
     "buildMode": "fast|multhread",
     "showRepathOnLog": true,
     "threadNum": 8,
@@ -74,12 +74,7 @@
     "sourceParams": {},
     "options": {
         "version": 4,
-        "afterBuildTasks": [
-            {
-                "name": "axf to elf",
-                "command": "axf2elf -d \"${ToolchainRoot}\" -i \"${OutDir}/${ProjectName}.axf\" -o \"${OutDir}/${ProjectName}.elf\" > \"${OutDir}/axf2elf.log\""
-            }
-        ],
+        "afterBuildTasks": [],
         "asm-compiler": {},
         "beforeBuildTasks": [],
         "c/cpp-compiler": {
@@ -132,11 +127,11 @@
         "SYS_PathSep": ";",
         "SYS_PathSeparator": ";",
         "SYS_EOL": "\r\n",
-        "EIDE_BUILDER_DIR": "c:\\Users\\JUNLI\\.vscode\\extensions\\cl.eide-3.26.1\\res\\tools\\win32\\unify_builder",
+        "EIDE_BUILDER_DIR": "c:\\Users\\JUNLI\\.trae-cn\\extensions\\cl.eide-3.26.1-universal\\res\\tools\\win32\\unify_builder",
         "EIDE_BINARIES_VER": "12.1.1",
         "EIDE_MSYS": "C:\\Users\\JUNLI\\.eide\\bin\\builder\\msys\\bin",
         "EIDE_PY3_CMD": "C:\\Users\\JUNLI\\.eide\\bin\\python36\\python3.exe",
-        "ToolchainRoot": "d:\\Keil_v5\\ARM\\ARMCC"
+        "ToolchainRoot": "D:\\Keil_v5\\ARM\\ARMCC"
     },
     "sysPaths": []
 }
