@@ -45,12 +45,11 @@ uint16_t CountSensor_Get(void)
     return CountSensor_Count;
 }
 
-void  RTCAlarm_IRQHandler (void)
+void EXTI15_10_IRQHandler(void)
 {
-  
-    if(EXTI_GetITStatus(EXTI_Line14)==SET)
+    if(EXTI_GetITStatus(EXTI_Line14) == SET)
     {
-        CountSensor_Count ++;
+        CountSensor_Count++;
         EXTI_ClearITPendingBit(EXTI_Line14);
     }
 }
