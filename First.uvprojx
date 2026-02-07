@@ -133,12 +133,12 @@
             <UseExternalTool>0</UseExternalTool>
             <RunIndependent>0</RunIndependent>
             <UpdateFlashBeforeDebugging>1</UpdateFlashBeforeDebugging>
-            <Capability>0</Capability>
-            <DriverSelection>-1</DriverSelection>
+            <Capability>1</Capability>
+            <DriverSelection>4096</DriverSelection>
           </Flash1>
           <bUseTDR>1</bUseTDR>
           <Flash2>BIN\UL2CM3.DLL</Flash2>
-          <Flash3></Flash3>
+          <Flash3>"" ()</Flash3>
           <Flash4></Flash4>
           <pFcarmOut></pFcarmOut>
           <pFcarmGrp></pFcarmGrp>
@@ -586,16 +586,6 @@
           <GroupName>Hideware</GroupName>
           <Files>
             <File>
-              <FileName>LED.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Hideware\LED.c</FilePath>
-            </File>
-            <File>
-              <FileName>LED.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\Hideware\LED.h</FilePath>
-            </File>
-            <File>
               <FileName>Key.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Hideware\Key.c</FilePath>
@@ -621,16 +611,6 @@
               <FilePath>.\Hideware\OLED_Font.h</FilePath>
             </File>
             <File>
-              <FileName>CountSensor.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Hideware\CountSensor.c</FilePath>
-            </File>
-            <File>
-              <FileName>CountSensor.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\Hideware\CountSensor.h</FilePath>
-            </File>
-            <File>
               <FileName>Encoder.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Hideware\Encoder.c</FilePath>
@@ -649,46 +629,6 @@
               <FileName>PWM.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\Hideware\PWM.h</FilePath>
-            </File>
-            <File>
-              <FileName>PWMIC.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Hideware\PWMIC.c</FilePath>
-            </File>
-            <File>
-              <FileName>PWMIC.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\Hideware\PWMIC.h</FilePath>
-            </File>
-            <File>
-              <FileName>InputCompare.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Hideware\InputCompare.c</FilePath>
-            </File>
-            <File>
-              <FileName>InputCompare.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\Hideware\InputCompare.h</FilePath>
-            </File>
-            <File>
-              <FileName>AD.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Hideware\AD.c</FilePath>
-            </File>
-            <File>
-              <FileName>AD.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\Hideware\AD.h</FilePath>
-            </File>
-            <File>
-              <FileName>DMA.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Hideware\DMA.c</FilePath>
-            </File>
-            <File>
-              <FileName>DMA.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\Hideware\DMA.h</FilePath>
             </File>
             <File>
               <FileName>DMA_ADC.c</FileName>

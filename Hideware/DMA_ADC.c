@@ -1,7 +1,26 @@
 #include "stm32f10x.h"                  // Device header
 
-// 存储ADC转换结果的数组，共4个通道
-uint16_t AD_Value[4];
+// 存储ADC转换结果的数组，共3个通道（PA5/PA6/PA7）
+uint16_t AD_Value[3];
+
+#define ADC_SAMPLE_RATE_HZ     10000U
+#define ADC_TIMER_CLK_HZ       72000000U
+
+static void DMAAD_TimerTriggerInit(void)
+{
+	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM3, ENABLE);
+
+	TIM_TimeBaseInitTypeDef TIM_TimeBaseInitStructure;
+	TIM_TimeBaseInitStructure.TIM_ClockDivision = TIM_CKD_DIV1;
+	TIM_TimeBaseInitStructure.TIM_CounterMode = TIM_CounterMode_Up;
+	TIM_TimeBaseInitStructure.TIM_Period = (ADC_TIMER_CLK_HZ / ADC_SAMPLE_RATE_HZ) - 1U;
+	TIM_TimeBaseInitStructure.TIM_Prescaler = 0;
+	TIM_TimeBaseInitStructure.TIM_RepetitionCounter = 0;
+	TIM_TimeBaseInit(TIM3, &TIM_TimeBaseInitStructure);
+
+	TIM_SelectOutputTrigger(TIM3, TIM_TRGOSource_Update);
+	TIM_Cmd(TIM3, ENABLE);
+}
 
 
 /**
@@ -23,23 +42,27 @@ void DMAAD_Init(void)
 	// GPIO初始化
 	GPIO_InitTypeDef GPIO_InitStructure;
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AIN;	// 设置为模拟输入模式
-	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0 | GPIO_Pin_1 | GPIO_Pin_2 | GPIO_Pin_3;	// 配置PA0-PA3四个通道
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_5 | GPIO_Pin_6 | GPIO_Pin_7;	// 配置PA5-PA7三个通道
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;	// 引脚速度（模拟输入模式下无实际意义）
 	GPIO_Init(GPIOA, &GPIO_InitStructure);				
 	
 	// ADC配置
 	ADC_InitTypeDef ADC_InitStructure;
-	ADC_InitStructure.ADC_ContinuousConvMode = ENABLE;		// 启用连续转换模式
+	ADC_InitStructure.ADC_ContinuousConvMode = DISABLE;		// 禁用连续转换，使用定时器触发
 	ADC_InitStructure.ADC_DataAlign = ADC_DataAlign_Right;	// 数据右对齐
-	ADC_InitStructure.ADC_ExternalTrigConv = ADC_ExternalTrigConv_None;	// 不使用外部触发，使用软件触发
+	ADC_InitStructure.ADC_ExternalTrigConv = ADC_ExternalTrigConv_T3_TRGO;	// TIM3触发
 	ADC_InitStructure.ADC_Mode = ADC_Mode_Independent;		// ADC1独立工作模式
-	ADC_InitStructure.ADC_NbrOfChannel = 4;				// 转换通道数量为4个
+	ADC_InitStructure.ADC_NbrOfChannel = 3;				// 转换通道数量为3个
 	ADC_InitStructure.ADC_ScanConvMode = ENABLE;			// 启用扫描模式（多通道转换需要）
 	ADC_Init(ADC1, &ADC_InitStructure);	
+
+	ADC_RegularChannelConfig(ADC1, ADC_Channel_5, 1, ADC_SampleTime_55Cycles5);
+	ADC_RegularChannelConfig(ADC1, ADC_Channel_6, 2, ADC_SampleTime_55Cycles5);
+	ADC_RegularChannelConfig(ADC1, ADC_Channel_7, 3, ADC_SampleTime_55Cycles5);
 	
 	// DMA初始化
 	DMA_InitTypeDef DMA_InitStructure;	
-	DMA_InitStructure.DMA_BufferSize = 4;				// 缓冲区大小，与通道数对应
+	DMA_InitStructure.DMA_BufferSize = 3;				// 缓冲区大小，与通道数对应
 	DMA_InitStructure.DMA_DIR = DMA_DIR_PeripheralSRC;	// 数据传输方向：外设到内存（ADC到内存）
 	DMA_InitStructure.DMA_M2M = DISABLE;				// 禁用内存到内存传输
 	DMA_InitStructure.DMA_Mode = DMA_Mode_Circular;		// 启用循环模式，自动重复传输
@@ -69,5 +92,13 @@ void DMAAD_Init(void)
 	ADC_StartCalibration(ADC1);								// 开始校准
 	while (ADC_GetCalibrationStatus(ADC1) == SET);			// 等待校准完成
 	
-	ADC_SoftwareStartConvCmd(ADC1, ENABLE);	// 软件触发ADC转换开始
+	DMAAD_TimerTriggerInit();
+	ADC_ExternalTrigConvCmd(ADC1, ENABLE);
+}
+
+int32_t DMAAD_AdcToCurrent_mA(uint16_t adc)
+{
+    int32_t millivolts = (int32_t)adc * 3300 / 4095;
+    int32_t delta_mv = millivolts - 2500;
+    return (delta_mv * 1000) / 185;
 }

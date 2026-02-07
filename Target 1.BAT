@@ -1,4 +1,4 @@
-SET PATH=d:\Keil_v5\ARM\ARMCC\Bin;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;d:\Program Files\Bandizip\;C:\Program Files (x86)\Microsoft SQL Server\160\Tools\Binn\;C:\Program Files\Microsoft SQL Server\160\Tools\Binn\;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn\;C:\Program Files\Microsoft SQL Server\160\DTS\Binn\;C:\Program Files (x86)\Windows Kits\8.1\Windows Performance Toolkit\;C:\Program Files\dotnet\;d:\Git\cmd;C:\Users\JUNLI\AppData\Local\Microsoft\WindowsApps;D:\VS_Code\Microsoft VS Code\bin;C:\Users\JUNLI\AppData\Local\GitHubDesktop\bin
+SET PATH=d:\Keil_v5\ARM\ARMCC\Bin;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;d:\Program Files\Bandizip\;C:\Program Files (x86)\Microsoft SQL Server\160\Tools\Binn\;C:\Program Files\Microsoft SQL Server\160\Tools\Binn\;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn\;C:\Program Files\Microsoft SQL Server\160\DTS\Binn\;C:\Program Files (x86)\Windows Kits\8.1\Windows Performance Toolkit\;C:\Program Files\dotnet\;d:\Git\cmd;C:\Program Files\CMake\bin;C:\Users\JUNLI\AppData\Local\Microsoft\WindowsApps;D:\VS_Code\Microsoft VS Code\bin;C:\Users\JUNLI\AppData\Local\GitHubDesktop\bin
 SET CPU_TYPE=STM32F103C8
 SET CPU_VENDOR=STMicroelectronics
 SET UV2_TARGET=Target 1
@@ -33,16 +33,10 @@ SET CPU_CLOCK=0x00B71B00
 "d:\Keil_v5\ARM\ARMCC\Bin\ArmCC" --Via ".\objects\stm32f10x_wwdg.__i"
 "d:\Keil_v5\ARM\ARMCC\Bin\ArmCC" --Via ".\objects\delay.__i"
 "d:\Keil_v5\ARM\ARMCC\Bin\ArmCC" --Via ".\objects\timer.__i"
-"d:\Keil_v5\ARM\ARMCC\Bin\ArmCC" --Via ".\objects\led.__i"
 "d:\Keil_v5\ARM\ARMCC\Bin\ArmCC" --Via ".\objects\key.__i"
 "d:\Keil_v5\ARM\ARMCC\Bin\ArmCC" --Via ".\objects\oled.__i"
-"d:\Keil_v5\ARM\ARMCC\Bin\ArmCC" --Via ".\objects\countsensor.__i"
 "d:\Keil_v5\ARM\ARMCC\Bin\ArmCC" --Via ".\objects\encoder.__i"
 "d:\Keil_v5\ARM\ARMCC\Bin\ArmCC" --Via ".\objects\pwm.__i"
-"d:\Keil_v5\ARM\ARMCC\Bin\ArmCC" --Via ".\objects\pwmic.__i"
-"d:\Keil_v5\ARM\ARMCC\Bin\ArmCC" --Via ".\objects\inputcompare.__i"
-"d:\Keil_v5\ARM\ARMCC\Bin\ArmCC" --Via ".\objects\ad.__i"
-"d:\Keil_v5\ARM\ARMCC\Bin\ArmCC" --Via ".\objects\dma.__i"
 "d:\Keil_v5\ARM\ARMCC\Bin\ArmCC" --Via ".\objects\dma_adc.__i"
 "d:\Keil_v5\ARM\ARMCC\Bin\ArmLink" --Via ".\Objects\First.lnp"
 "d:\Keil_v5\ARM\ARMCC\Bin\fromelf.exe" ".\Objects\First.axf" --i32combined --output ".\Objects\First.hex"

@@ -2,6 +2,11 @@
 
 
 
+
+".\User\main.c", line 8: Error:  #5: cannot open source input file "PWMIC.h": No such file or directory
+  #include "PWMIC.h"
+                    ^
+.\User\main.c: 0 warnings, 1 error
+
 >>> ld
 
-Program Size: Code=2876 RO-data=1788 RW-data=12 ZI-data=1636  
