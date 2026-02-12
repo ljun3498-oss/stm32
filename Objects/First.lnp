@@ -29,11 +29,7 @@
 ".\objects\stm32f10x_wwdg.o"
 ".\objects\delay.o"
 ".\objects\timer.o"
-".\objects\key.o"
 ".\objects\oled.o"
-".\objects\encoder.o"
-".\objects\pwm.o"
-".\objects\dma_adc.o"
 --strict --scatter ".\Objects\First.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers

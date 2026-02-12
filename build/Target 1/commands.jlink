@@ -1,6 +1,0 @@
-r
-halt
-loadfile "c:\Users\JUNLI\Desktop\C_work\stm32\build\Target 1\First.hex"
-r
-go
-exit
