@@ -38,18 +38,18 @@
 #define MAX_CURRENT_Q15 32767        // 1.5A对应的Q15值（最大值）
 #define ELEC_ALIGN_SHIFT_TENTHS 0    // 电角度固定偏移(0.1度)，默认0，交由对齐计算
 #define ELEC_ANGLE_DIR  -1           // 电角度方向: 1=正向, -1=反向
-#define KP_ID_Q15       1638         // Kp=0.05 * 32768 (降低响应防止震荡)
-#define KI_ID_Q15       50           // Ki降低
-#define KP_IQ_Q15       1638         // Kp=0.05 (降低防止震荡)
-#define KI_IQ_Q15       50           // Ki降低
-#define DT_MS           0.1          // 实际控制周期100µs (10kHz)
+#define KP_ID_Q15       3277         // Kp=0.1 (适中的响应速度)
+#define KI_ID_Q15       200          // Ki=200
+#define KP_IQ_Q15       3277         // Kp=0.1
+#define KI_IQ_Q15       200          // Ki=200
+#define DT_MS           0.05         // 实际控制周期50µs (20kHz)
 #define FOC_ISR_HZ      ADC_SAMPLE_RATE_HZ
 #define ALIGNMENT_SAMPLES (FOC_ISR_HZ / 1U)  // 1s (加强对齐时间)
 #define VOLT_MAX_Q15    26214        // 0.8 in Q15
 #define OPEN_LOOP_TEST  0            // 1=开环测试, 0=闭环FOC
 #define OPEN_LOOP_VD_Q15 0
-#define OPEN_LOOP_VQ_Q15 8000        // 开环q轴电压(归一化0.244，实际约2.93V)
-#define OPEN_LOOP_STEP_Q16 100      // 电角度步进(20kHz下约3138rpm机械)
+#define OPEN_LOOP_VQ_Q15 4500        // 开环q轴电压(~8%，增大以获得更多转矩)
+#define OPEN_LOOP_STEP_Q16 14         // 电角度步进(20kHz更新，极低速度用于测试)
 
 // Sin/Cos查找表（256点，Q15格式）
 static const int16_t sin_table[256] = {
@@ -74,6 +74,8 @@ static const int16_t sin_table[256] = {
 // ADC Module
 uint16_t AD_Value[3];
 static uint16_t g_adc_zero_offset[3] = {2048, 2048, 2048};  // 默认2.5V为中点
+// ADC一阶滤波缓冲（alpha≈1/16，平滑ADC噪声）
+static int32_t g_adc_filt[3] = {0, 0, 0};
 
 // Encoder Module (non-buffer variables)
 static volatile uint32_t g_ms = 0;
@@ -94,9 +96,6 @@ static volatile uint8_t g_buffer_ready = 0;
 
 // 编码器原始值缓存（在读取失败时使用）
 static uint16_t encoder_raw_cache = 0;
-static uint16_t diag_raw_value = 0;  // 诊断用：当前raw值
-static uint16_t diag_last_raw = 0;   // 诊断用：g_last_raw值
-static uint16_t diag_init_val = 0;   // 诊断用：初始化时的值
 static volatile uint16_t g_encoder_raw_for_foc = 0;  // 供FOC中断用的编码器原始值(14bit)
 
 // 三相电流显示变量
@@ -115,15 +114,14 @@ static volatile uint8_t g_alignment_done = 0;  // 对齐完成标志
 static volatile uint8_t g_oled_update_flag = 0;
 static volatile uint8_t g_foc_enabled = 0;
 static volatile uint8_t g_foc_state = FOC_STATE_IDLE;  // FOC状态机
-static volatile uint8_t g_theta_flip = 1;  // 电角度方向翻转（1=反向）
+static volatile uint8_t g_theta_flip = 1;  // 电角度方向翻转（1=反向）- 解决"转一下卡住"
 static volatile uint32_t g_align_counter = 0;    // 对齐计数器
-static int16_t g_elec_offset_q16 = 0;            // 对齐电角度偏移 (Q16格式)
 static int16_t g_iq_ref_q15 = 0;                 // q轴电流参考 (Q15格式)
 static volatile uint16_t g_open_loop_theta = 0;  // 开环电角度（软件步进）
 
 // FOC PI Controllers
-static int32_t Id_int_q15 = 0;
-static int32_t Iq_int_q15 = 0;
+static int32_t Id_int_q15 = 0;  // d轴积分（对齐时会自动建立）
+static int32_t Iq_int_q15 = 0;  // q轴积分
 
 // OLED Display Variables
 static uint16_t display_counter = 0;
@@ -274,10 +272,10 @@ void DMAAD_Init(void)
     ADC_Init(ADC1, &ADC_InitStructure);
     
     // 配置3个通道的扫描序列
-    // 缩短采样时间：13.5周期（约2.5μs/通道，3通道总耗时<8μs）
-    ADC_RegularChannelConfig(ADC1, ADC_Channel_5, 1, ADC_SampleTime_13Cycles5);
-    ADC_RegularChannelConfig(ADC1, ADC_Channel_6, 2, ADC_SampleTime_13Cycles5);
-    ADC_RegularChannelConfig(ADC1, ADC_Channel_7, 3, ADC_SampleTime_13Cycles5);
+    // 增加采样时间以降低噪声：71.5周期（约7μs/通道）
+    ADC_RegularChannelConfig(ADC1, ADC_Channel_5, 1, ADC_SampleTime_71Cycles5);
+    ADC_RegularChannelConfig(ADC1, ADC_Channel_6, 2, ADC_SampleTime_71Cycles5);
+    ADC_RegularChannelConfig(ADC1, ADC_Channel_7, 3, ADC_SampleTime_71Cycles5);
     
     // 启用 DMA 和 ADC
     ADC_DMACmd(ADC1, ENABLE);
@@ -564,12 +562,7 @@ void Encoder_Init(void)
     Delay_ms(20);
     init_val = Encoder_GetRaw14();
     
-    // 记录初始化值以供诊断，并设置初始显示值
-    diag_init_val = init_val;
-    diag_raw_value = init_val;
-    diag_last_raw = init_val;
-    
-    // 设置基准
+    // 记录初始化值
     g_last_raw = init_val;
     encoder_raw_cache = init_val;
     g_accum = (int32_t)init_val;
@@ -624,10 +617,6 @@ void Encoder_ProcessBuffer(uint8_t *buffer, uint16_t size)
     {
         uint16_t raw = (uint16_t)((buffer[i] << 8) | buffer[i + 1]) & 0x3FFF;
         int32_t delta = (int32_t)raw - (int32_t)g_last_raw;
-
-        // 更新诊断变量（处理前的状态）
-        diag_last_raw = g_last_raw;
-        diag_raw_value = raw;
 
         if (delta > (MT6701_ELEC_COUNTS / 2))
         {
@@ -693,12 +682,6 @@ int16_t Encoder_Get(void)
 {
     uint16_t raw = Encoder_GetRaw14();
     int32_t delta = (int32_t)raw - (int32_t)g_last_raw;
-    int32_t mod;
-    uint16_t angle_tenths;
-
-    // 诊断用：记录raw值和g_last_raw
-    diag_raw_value = raw;
-    diag_last_raw = g_last_raw;
 
     if (delta > (MT6701_ELEC_COUNTS / 2))
     {
@@ -713,10 +696,10 @@ int16_t Encoder_Get(void)
     g_last_raw = raw;
     g_encoder_raw_for_foc = raw;  // 更新FOC用的原始值
 
-    mod = g_accum % MT6701_MECH_COUNTS;
+    int32_t mod = g_accum % MT6701_MECH_COUNTS;
     if (mod < 0) mod += MT6701_MECH_COUNTS;
 
-    angle_tenths = (uint16_t)((uint32_t)mod * 3600U / MT6701_MECH_COUNTS);
+    uint16_t angle_tenths = (uint16_t)((uint32_t)mod * 3600U / MT6701_MECH_COUNTS);
     return (int16_t)angle_tenths;
 }
 
@@ -806,6 +789,19 @@ void clarke_transform_q15(int16_t Ia_q15, int16_t Ib_q15, int16_t Ic_q15, int16_
     *beta = (int16_t)((temp * 18919L) >> 15);  // 18919 = (1/sqrt(3))*32768
 }
 
+// 逆Clarke变换（定点数版本）
+// 输入：Q15格式alpha/beta，输出：Q15格式三相电流
+void inv_clarke_transform_q15(int16_t alpha, int16_t beta, int16_t *Ia, int16_t *Ib, int16_t *Ic)
+{
+    *Ia = alpha;
+    // Ib = -0.5*alpha + 0.866*beta
+    int32_t temp_b = (-(int32_t)alpha * 16384L + (int32_t)beta * 28378L) >> 15;
+    *Ib = (int16_t)temp_b;
+    // Ic = -0.5*alpha - 0.866*beta
+    int32_t temp_c = (-(int32_t)alpha * 16384L - (int32_t)beta * 28378L) >> 15;
+    *Ic = (int16_t)temp_c;
+}
+
 // Park变换（定点数版本）
 void park_transform_q15(int16_t alpha, int16_t beta, uint16_t theta, int16_t *d, int16_t *q)
 {
@@ -832,32 +828,53 @@ void inv_park_transform_q15(int16_t vd, int16_t vq, uint16_t theta, int16_t *alp
     *beta = (int16_t)beta_temp;
 }
 
-// D轴电流PI控制器（定点数版本）
+// 全局标志：用于虚拟闭环的PI抗饱和
+static uint8_t g_pi_saturated_d = 0;
+static uint8_t g_pi_saturated_q = 0;
+
+// D轴电流PI控制器（定点数版本，带抗积分饱和）
 int16_t pi_id_q15(int16_t err_q15)
 {
     int16_t Imax_q15 = (int16_t)(MAX_CURRENT_Q15 >> 0);  // 1.5A限制
     
-    // 积分项：I += Ki * err * dt (dt=0.1ms)
-    int32_t integral_increment = (Q15_MULT(KI_ID_Q15, err_q15) * 1) / 10;  // dt=0.1 -> *1/10
-    Id_int_q15 += integral_increment;
-    Id_int_q15 = clamp_q15(Id_int_q15, -Imax_q15, Imax_q15);
+    // 条件积分：只有当误差同号或输出未饱和时才进行积分（抗Windup）
+    // 如果上一拍输出饱和了，就停止积分
+    if (!g_pi_saturated_d) {
+        Id_int_q15 += Q15_MULT(KI_ID_Q15, err_q15);
+        Id_int_q15 = clamp_q15(Id_int_q15, -Imax_q15, Imax_q15);
+    } else {
+        // 激进的抗Windup：输出已饱和时，清零积分器
+        Id_int_q15 = 0;
+    }
     
     int32_t output = Q15_MULT(KP_ID_Q15, err_q15) + (Id_int_q15 >> 0);
-    return clamp_q15(output, -Imax_q15, Imax_q15);
+    int16_t result = clamp_q15(output, -Imax_q15, Imax_q15);
+    
+    // 记录是否饱和（供下一拍参考）
+    g_pi_saturated_d = (output != result) ? 1 : 0;
+    return result;
 }
 
-// Q轴电流PI控制器（定点数版本）
+// Q轴电流PI控制器（定点数版本，带抗积分饱和）
 int16_t pi_iq_q15(int16_t err_q15)
 {
     int16_t Imax_q15 = (int16_t)(MAX_CURRENT_Q15 >> 0);  // 1.5A限制
     
-    // 积分项：I += Ki * err * dt (dt=0.1ms)
-    int32_t integral_increment = (Q15_MULT(KI_IQ_Q15, err_q15) * 1) / 10;  // dt=0.1 -> *1/10
-    Iq_int_q15 += integral_increment;
-    Iq_int_q15 = clamp_q15(Iq_int_q15, -Imax_q15, Imax_q15);
+    // 条件积分：只有当输出未饱和时才进行积分（抗Windup）
+    if (!g_pi_saturated_q) {
+        Iq_int_q15 += Q15_MULT(KI_IQ_Q15, err_q15);
+        Iq_int_q15 = clamp_q15(Iq_int_q15, -Imax_q15, Imax_q15);
+    } else {
+        // 激进的抗Windup：输出已饱和时，清零积分器
+        Iq_int_q15 = 0;
+    }
     
     int32_t output = Q15_MULT(KP_IQ_Q15, err_q15) + (Iq_int_q15 >> 0);
-    return clamp_q15(output, -Imax_q15, Imax_q15);
+    int16_t result = clamp_q15(output, -Imax_q15, Imax_q15);
+    
+    // 记录是否饱和（供下一拍参考）
+    g_pi_saturated_q = (output != result) ? 1 : 0;
+    return result;
 }
 
 // SVPWM计算函数（定点数版本）
@@ -919,10 +936,29 @@ void TIM3_IRQHandler(void)
 {
     if (TIM_GetITStatus(TIM3, TIM_IT_Update) == SET)
     {
+        // 对ADC采样值进行一阶低通滤波（alpha≈1/16）
+        // 这是第一级滤波，在FOC中还有第二级滤波形成双重滤波架构
+        static uint8_t adc_filt_init = 0;
+        if (!adc_filt_init) {
+            g_adc_filt[0] = (int32_t)AD_Value[0] << 4;  // 预加载
+            g_adc_filt[1] = (int32_t)AD_Value[1] << 4;
+            g_adc_filt[2] = (int32_t)AD_Value[2] << 4;
+            adc_filt_init = 1;
+        }
+        
+        g_adc_filt[0] = g_adc_filt[0] + (AD_Value[0] - (g_adc_filt[0] >> 4));
+        g_adc_filt[1] = g_adc_filt[1] + (AD_Value[1] - (g_adc_filt[1] >> 4));
+        g_adc_filt[2] = g_adc_filt[2] + (AD_Value[2] - (g_adc_filt[2] >> 4));
+        
+        // 更新公共AD_Value为滤波后的值，供后续处理使用
+        AD_Value[0] = (uint16_t)(g_adc_filt[0] >> 4);
+        AD_Value[1] = (uint16_t)(g_adc_filt[1] >> 4);
+        AD_Value[2] = (uint16_t)(g_adc_filt[2] >> 4);
+        
         // 采集传感器数据
         SensorData_Collect();
         
-        // 每100次中断设置一次OLED更新标志（100Hz刷新）10kHz/100）
+        // 每100次中断设置一次OLED更新标志（100Hz刷新）
         display_counter++;
         if (display_counter >= 100)
         {
@@ -947,10 +983,42 @@ void TIM2_IRQHandler(void)
         foc_skip ^= 1;
         if (foc_skip) return;
         
-        // 读取三相电流（无论FOC状态，用于显示）
-        g_Ia_mA = (int16_t)DMAAD_AdcToCurrent_mA(AD_Value[0], 0);
-        g_Ib_mA = (int16_t)DMAAD_AdcToCurrent_mA(AD_Value[1], 1);
-        g_Ic_mA = (int16_t)DMAAD_AdcToCurrent_mA(AD_Value[2], 2);
+        // 读取三相电流
+        // 注：AD_Value已在TIM3中进行了第一级一阶滤波（alpha≈1/16）
+        // 这里进行第二级滤波（alpha≈1/256）形成双重滤波，大幅削弱高频噪声
+        static int32_t Ia_filt = 0, Ib_filt = 0, Ic_filt = 0;
+        static uint8_t filt_init = 0;
+        int16_t Ia_raw = (int16_t)DMAAD_AdcToCurrent_mA(AD_Value[0], 0);
+        int16_t Ib_raw = (int16_t)DMAAD_AdcToCurrent_mA(AD_Value[1], 1);
+        int16_t Ic_raw = (int16_t)DMAAD_AdcToCurrent_mA(AD_Value[2], 2);
+        
+        // 开环模式使用原始电流（无滤波），闭环模式使用滤波电流
+        int16_t Ia_use, Ib_use, Ic_use;
+        if (g_foc_state == FOC_STATE_OPENLOOP) {
+            // 开环：直接使用原始电流反馈，避免滤波延迟
+            Ia_use = Ia_raw;
+            Ib_use = Ib_raw;
+            Ic_use = Ic_raw;
+        } else {
+            // 闭环：使用滤波电流
+            // 首次运行时预加载滤波器，避免冷启动瞬态
+            if (!filt_init) {
+                Ia_filt = (int32_t)Ia_raw << 8;
+                Ib_filt = (int32_t)Ib_raw << 8;
+                Ic_filt = (int32_t)Ic_raw << 8;
+                filt_init = 1;
+            }
+            
+            Ia_filt = Ia_filt + (Ia_raw - (Ia_filt >> 8));  // alpha≈1/256
+            Ib_filt = Ib_filt + (Ib_raw - (Ib_filt >> 8));
+            Ic_filt = Ic_filt + (Ic_raw - (Ic_filt >> 8));
+            Ia_use = (int16_t)(Ia_filt >> 8);
+            Ib_use = (int16_t)(Ib_filt >> 8);
+            Ic_use = (int16_t)(Ic_filt >> 8);
+        }
+        g_Ia_mA = Ia_use;
+        g_Ib_mA = Ib_use;
+        g_Ic_mA = Ic_use;
         
         /* ---- 状态机：空闲 ---- */
         if (g_foc_state == FOC_STATE_IDLE)
@@ -969,6 +1037,7 @@ void TIM2_IRQHandler(void)
             uint16_t ccr1, ccr2, ccr3;
             
             // Vd=3000(~9%), Vq=0, theta=0 → 锁定到A相
+            // 改为较小对齐电压3000(~9%)便于观察虚拟闭环
             inv_park_transform_q15(3000, 0, 0, &Valpha, &Vbeta);
             svpwm_compute_q15(Valpha, Vbeta, &ccr1, &ccr2, &ccr3);
             
@@ -979,17 +1048,12 @@ void TIM2_IRQHandler(void)
             g_align_counter++;
             if (g_align_counter >= 20000U)  // 1秒对齐 (20kHz × 1s)
             {
-                // 用编码器原始值计算电角度偏移（不受传动比影响）
-                uint32_t raw14 = g_encoder_raw_for_foc;
-                uint32_t elec_angle = (raw14 * MT6701_POLE_PAIRS) % MT6701_ELEC_COUNTS;
-                g_elec_offset_q16 = -(int16_t)((elec_angle * 65536UL) / MT6701_ELEC_COUNTS);
-                
-                // 开环电角度从当前偏移开始
-                g_open_loop_theta = 0;  // 对齐后 theta=0 结合 offset 已经正确
-                
-                FOC_ResetIntegrators();
+                // 闭环进入时的参数设置
+                FOC_ResetIntegrators();  // 清零积分器
+                // 设置初始q轴电流参考（较小值，约137mA转矩）
+                g_iq_ref_q15 = 3000;
                 g_alignment_done = 1;
-                g_foc_state = FOC_STATE_CLOSEDLOOP;  // 直接进入闭环
+                g_foc_state = FOC_STATE_CLOSEDLOOP;
             }
             return;
         }
@@ -998,8 +1062,6 @@ void TIM2_IRQHandler(void)
         if (g_foc_state == FOC_STATE_OPENLOOP)
         {
             // 软件步进电角度，不依赖电流反馈
-            // 步进速度：5 / 20000 * 65536 ≈ 1.5Hz电频率
-            // 对应机械转速 = 1.5/7 ≈ 13 rpm（很慢，确保跟得上）
             g_open_loop_theta += OPEN_LOOP_STEP_Q16;  // 使用宏定义的步进值 (Q16格式)
             
             int16_t Valpha, Vbeta;
@@ -1018,24 +1080,27 @@ void TIM2_IRQHandler(void)
         /* ---- 状态机：闭环FOC模式 ---- */
         if (g_foc_state == FOC_STATE_CLOSEDLOOP)
         {
-            // 1. 用编码器原始值计算电角度（不受传动比影响）
-            uint32_t raw14 = g_encoder_raw_for_foc;
+            // 使用编码器反馈角度
+            uint16_t raw14 = g_encoder_raw_for_foc;
             uint32_t elec_angle = (raw14 * MT6701_POLE_PAIRS) % MT6701_ELEC_COUNTS;
             uint16_t theta = (uint16_t)((elec_angle * 65536UL) / MT6701_ELEC_COUNTS);
-            theta = (uint16_t)((int32_t)theta + g_elec_offset_q16);
             
-            if (g_theta_flip) theta = (uint16_t)(-(int16_t)theta);
+            // 根据g_theta_flip标志决定是否翻转角度方向
+            if (g_theta_flip) {
+                theta = (uint16_t)(-(int16_t)theta);
+            }
             
-            // 2. 电流转Q15格式 (±1500mA → ±32767)
-            int16_t Ia_q15 = (int16_t)((int32_t)g_Ia_mA * MAX_CURRENT_Q15 / MAX_CURRENT_MA);
-            int16_t Ib_q15 = (int16_t)((int32_t)g_Ib_mA * MAX_CURRENT_Q15 / MAX_CURRENT_MA);
-            int16_t Ic_q15 = (int16_t)((int32_t)g_Ic_mA * MAX_CURRENT_Q15 / MAX_CURRENT_MA);
+            // 使用真实三相电流反馈（已滤波，单位：mA）
+            // 转换为Q15格式：1.5A = 1500mA 对应 32767
+            int16_t Ia_q15 = (int16_t)((int32_t)Ia_use * 32767 / 1500);
+            int16_t Ib_q15 = (int16_t)((int32_t)Ib_use * 32767 / 1500);
+            int16_t Ic_q15 = (int16_t)((int32_t)Ic_use * 32767 / 1500);
             
-            // 3. Clarke变换: Ia,Ib,Ic → Iα,Iβ
+            // Clarke变换: Ia,Ib,Ic → Iα,Iβ
             int16_t Ialpha, Ibeta;
             clarke_transform_q15(Ia_q15, Ib_q15, Ic_q15, &Ialpha, &Ibeta);
             
-            // 4. Park变换: Iα,Iβ → Id,Iq
+            // Park变换: Iα,Iβ → Id,Iq
             int16_t Id, Iq;
             park_transform_q15(Ialpha, Ibeta, theta, &Id, &Iq);
             

@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Objects\First.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Objects\First.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060528: Last Updated: Thu Feb 12 21:31:58 2026
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060528: Last Updated: Thu Feb 12 23:48:20 2026
 <BR><P>
 <H3>Maximum Stack Usage =        172 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -566,7 +566,7 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[5f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Delay_ms
 </UL>
 
-<P><STRONG><a name="[79]"></a>Encoder_Get</STRONG> (Thumb, 110 bytes, Stack size 24 bytes, main.o(i.Encoder_Get))
+<P><STRONG><a name="[79]"></a>Encoder_Get</STRONG> (Thumb, 98 bytes, Stack size 24 bytes, main.o(i.Encoder_Get))
 <BR><BR>[Stack]<UL><LI>Max Depth = 140<LI>Call Chain = Encoder_Get &rArr; Encoder_GetRaw14 &rArr; MT6701_ReadRegPair &rArr; I2C_Init &rArr; RCC_GetClocksFreq
 </UL>
 <BR>[Calls]<UL><LI><a href="#[7a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Encoder_GetRaw14
@@ -587,7 +587,7 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[45]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[7c]"></a>Encoder_Init</STRONG> (Thumb, 210 bytes, Stack size 32 bytes, main.o(i.Encoder_Init))
+<P><STRONG><a name="[7c]"></a>Encoder_Init</STRONG> (Thumb, 198 bytes, Stack size 32 bytes, main.o(i.Encoder_Init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 148<LI>Call Chain = Encoder_Init &rArr; Encoder_GetRaw14 &rArr; MT6701_ReadRegPair &rArr; I2C_Init &rArr; RCC_GetClocksFreq
 </UL>
 <BR>[Calls]<UL><LI><a href="#[61]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB2PeriphClockCmd
@@ -925,8 +925,8 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f10x_md.o(.text)
 </UL>
-<P><STRONG><a name="[2a]"></a>TIM2_IRQHandler</STRONG> (Thumb, 666 bytes, Stack size 80 bytes, main.o(i.TIM2_IRQHandler))
-<BR><BR>[Stack]<UL><LI>Max Depth = 144<LI>Call Chain = TIM2_IRQHandler &rArr; park_transform_q15 &rArr; fast_cos_q15 &rArr; fast_sin_q15
+<P><STRONG><a name="[2a]"></a>TIM2_IRQHandler</STRONG> (Thumb, 772 bytes, Stack size 104 bytes, main.o(i.TIM2_IRQHandler))
+<BR><BR>[Stack]<UL><LI>Max Depth = 168<LI>Call Chain = TIM2_IRQHandler &rArr; park_transform_q15 &rArr; fast_cos_q15 &rArr; fast_sin_q15
 </UL>
 <BR>[Calls]<UL><LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_SetCompare3
 <LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_SetCompare2
@@ -945,7 +945,7 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f10x_md.o(RESET)
 </UL>
-<P><STRONG><a name="[2b]"></a>TIM3_IRQHandler</STRONG> (Thumb, 56 bytes, Stack size 8 bytes, main.o(i.TIM3_IRQHandler))
+<P><STRONG><a name="[2b]"></a>TIM3_IRQHandler</STRONG> (Thumb, 188 bytes, Stack size 8 bytes, main.o(i.TIM3_IRQHandler))
 <BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = TIM3_IRQHandler &rArr; TIM_GetITStatus
 </UL>
 <BR>[Calls]<UL><LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_GetITStatus
@@ -1097,7 +1097,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[2a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM2_IRQHandler
 </UL>
 
-<P><STRONG><a name="[b0]"></a>pi_id_q15</STRONG> (Thumb, 78 bytes, Stack size 24 bytes, main.o(i.pi_id_q15))
+<P><STRONG><a name="[b0]"></a>pi_id_q15</STRONG> (Thumb, 106 bytes, Stack size 24 bytes, main.o(i.pi_id_q15))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = pi_id_q15
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clamp_q15
@@ -1105,7 +1105,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[2a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM2_IRQHandler
 </UL>
 
-<P><STRONG><a name="[b1]"></a>pi_iq_q15</STRONG> (Thumb, 78 bytes, Stack size 24 bytes, main.o(i.pi_iq_q15))
+<P><STRONG><a name="[b1]"></a>pi_iq_q15</STRONG> (Thumb, 106 bytes, Stack size 24 bytes, main.o(i.pi_iq_q15))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = pi_iq_q15
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clamp_q15

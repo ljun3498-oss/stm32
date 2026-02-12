@@ -29,13 +29,6 @@ Project File Date:  02/08/2026
 *** Note: Rebuilding project, since 'Options->Output->Create Batch File' is selected.
 Rebuild target 'Target 1'
 compiling main.c...
-User\main.c(97): warning:  #550-D: variable "diag_raw_value"  was set but never used
-  static uint16_t diag_raw_value = 0;  // 诊断用：当前raw�?
-User\main.c(98): warning:  #550-D: variable "diag_last_raw"  was set but never used
-  static uint16_t diag_last_raw = 0;   // 诊断用：g_last_raw�?
-User\main.c(99): warning:  #550-D: variable "diag_init_val"  was set but never used
-  static uint16_t diag_init_val = 0;   // 诊断用：初始化时的�?
-User\main.c: 3 warnings, 0 errors
 compiling stm32f10x_it.c...
 compiling core_cm3.c...
 assembling startup_stm32f10x_md.s...
@@ -67,9 +60,9 @@ compiling Delay.c...
 compiling Timer.c...
 compiling OLED.c...
 linking...
-Program Size: Code=9982 RO-data=2302 RW-data=116 ZI-data=1764  
+Program Size: Code=10262 RO-data=2302 RW-data=128 ZI-data=1776  
 FromELF: creating hex file...
-".\Objects\First.axf" - 0 Error(s), 3 Warning(s).
+".\Objects\First.axf" - 0 Error(s), 0 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -83,7 +76,7 @@ Package Vendor: Keil
   d:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include
 
 <h2>Collection of Component Files used:</h2>
-Build Time Elapsed:  00:00:26
+Build Time Elapsed:  00:00:16
 </pre>
 </body>
 </html>

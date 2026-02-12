@@ -42,3 +42,126 @@ These source files will be recompiled
 [2026-02-12 19:37:16]	[done]
 	build successfully !
 
+[2026-02-12 22:37:40]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'c:\Users\JUNLI\Desktop\C_work\stm32\User\main.c': source file has been changed.
+
+[2026-02-12 22:37:41]	[done]
+	build successfully !
+
+[2026-02-12 23:03:09]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'c:\Users\JUNLI\Desktop\C_work\stm32\User\main.c': source file has been changed.
+
+[2026-02-12 23:03:10]	[done]
+	build successfully !
+
+[2026-02-12 23:03:56]	[done]
+	build successfully !
+
+[2026-02-12 23:06:31]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'c:\Users\JUNLI\Desktop\C_work\stm32\User\main.c': source file has been changed.
+
+[2026-02-12 23:06:32]	[done]
+	build successfully !
+
+[2026-02-12 23:11:11]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'c:\Users\JUNLI\Desktop\C_work\stm32\User\main.c': source file has been changed.
+
+[2026-02-12 23:11:12]	[done]
+	build successfully !
+
+[2026-02-12 23:17:47]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'c:\Users\JUNLI\Desktop\C_work\stm32\User\main.c': source file has been changed.
+
+[2026-02-12 23:17:48]	[done]
+	build successfully !
+
+[2026-02-12 23:22:11]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'c:\Users\JUNLI\Desktop\C_work\stm32\User\main.c': source file has been changed.
+
+[2026-02-12 23:22:11]	compilation failed at : "c:\Users\JUNLI\Desktop\C_work\stm32\User\main.c", exit code: 1
+command: 
+  "d:\Keil_v5\ARM\ARMCC\bin\armcc.exe" -c --apcs=interwork -I. -Istart -IUser -ILibrary -ISystem -IListings -IHideware -I.cmsis/include -I"RTE/_Target 1" -D"USE_STDPERIPH_DRIVER" --cpu Cortex-M3 --li --c99 -O0 --split_sections --diag_suppress=1 --diag_suppress=1295 -g -o ".\build\Target 1\.obj\User\main.o" --no_depend_system_headers --depend ".\build\Target 1\.obj\User\main.d" .\User\main.c
+   at unify_builder.Program.Main(String[] args_)
+---
+".\User\main.c", line 1107: Error:  #101: "Ib_q15" has already been declared in the current scope
+              int16_t Ib_q15 = Q15_MULT(Iamp_q15, fast_sin_q15(theta - 21845));  // -120° (65536/3 �? 21845)
+                      ^
+".\User\main.c", line 1108: Error:  #101: "Ic_q15" has already been declared in the current scope
+              int16_t Ic_q15 = Q15_MULT(Iamp_q15, fast_sin_q15(theta - 43691));  // -240° (2*65536/3 �? 43691)
+                      ^
+".\User\main.c", line 97: Warning:  #550-D: variable "diag_raw_value"  was set but never used
+  static uint16_t diag_raw_value = 0;  // 诊断用：当前raw�?
+                  ^
+".\User\main.c", line 98: Warning:  #550-D: variable "diag_last_raw"  was set but never used
+  static uint16_t diag_last_raw = 0;   // 诊断用：g_last_raw�?
+                  ^
+".\User\main.c", line 99: Warning:  #550-D: variable "diag_init_val"  was set but never used
+  static uint16_t diag_init_val = 0;   // 诊断用：初始化时的�?
+                  ^
+".\User\main.c", line 120: Warning:  #550-D: variable "g_elec_offset_q16"  was set but never used
+  static int16_t g_elec_offset_q16 = 0;            // 对齐电角度偏�? (Q16格式)
+                 ^
+.\User\main.c: 4 warnings, 2 errors
+
+[2026-02-12 23:22:56]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'c:\Users\JUNLI\Desktop\C_work\stm32\User\main.c': source file has been changed.
+
+[2026-02-12 23:22:57]	[done]
+	build successfully !
+
+[2026-02-12 23:24:28]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'c:\Users\JUNLI\Desktop\C_work\stm32\User\main.c': source file has been changed.
+
+[2026-02-12 23:24:28]	[done]
+	build successfully !
+
+[2026-02-12 23:26:47]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'c:\Users\JUNLI\Desktop\C_work\stm32\User\main.c': source file has been changed.
+
+[2026-02-12 23:26:47]	[done]
+	build successfully !
+
+[2026-02-12 23:32:28]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'c:\Users\JUNLI\Desktop\C_work\stm32\User\main.c': source file has been changed.
+
+[2026-02-12 23:32:28]	compilation failed at : "c:\Users\JUNLI\Desktop\C_work\stm32\User\main.c", exit code: 1
+command: 
+  "d:\Keil_v5\ARM\ARMCC\bin\armcc.exe" -c --apcs=interwork -I. -Istart -IUser -ILibrary -ISystem -IListings -IHideware -I.cmsis/include -I"RTE/_Target 1" -D"USE_STDPERIPH_DRIVER" --cpu Cortex-M3 --li --c99 -O0 --split_sections --diag_suppress=1 --diag_suppress=1295 -g -o ".\build\Target 1\.obj\User\main.o" --no_depend_system_headers --depend ".\build\Target 1\.obj\User\main.d" .\User\main.c
+   at unify_builder.Program.Main(String[] args_)
+---
+".\User\main.c", line 699: Error:  #20: identifier "mod" is undefined
+      mod = g_accum % MT6701_MECH_COUNTS;
+      ^
+".\User\main.c", line 1040: Warning:  #177-D: variable "elec_angle"  was declared but never referenced
+                  uint32_t elec_angle = (raw14 * MT6701_POLE_PAIRS) % MT6701_ELEC_COUNTS;
+                           ^
+.\User\main.c: 1 warning, 1 error
+
+[2026-02-12 23:35:11]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'c:\Users\JUNLI\Desktop\C_work\stm32\User\main.c': source file has been changed.
+
+[2026-02-12 23:35:12]	[done]
+	build successfully !
+
