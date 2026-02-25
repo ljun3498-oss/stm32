@@ -165,3 +165,214 @@ These source files will be recompiled
 [2026-02-12 23:35:12]	[done]
 	build successfully !
 
+[2026-02-13 12:11:47]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'c:\Users\JUNLI\Desktop\C_work\stm32\User\main.c': source file has been changed.
+
+[2026-02-13 12:11:47]	[done]
+	build successfully !
+
+[2026-02-13 18:50:20]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'c:\Users\JUNLI\Desktop\C_work\stm32\User\main.c': source file has been changed.
+
+[2026-02-13 18:50:21]	[done]
+	build successfully !
+
+[2026-02-13 21:33:23]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'c:\Users\JUNLI\Desktop\C_work\stm32\User\main.c': source file has been changed.
+
+[2026-02-13 21:33:24]	[done]
+	build successfully !
+
+[2026-02-13 22:18:41]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'c:\Users\JUNLI\Desktop\C_work\stm32\User\main.c': source file has been changed.
+
+[2026-02-13 22:18:42]	compilation failed at : "c:\Users\JUNLI\Desktop\C_work\stm32\User\main.c", exit code: 1
+command: 
+  "d:\Keil_v5\ARM\ARMCC\bin\armcc.exe" -c --apcs=interwork -I. -Istart -IUser -ILibrary -ISystem -IListings -IHideware -I.cmsis/include -I"RTE/_Target 1" -D"USE_STDPERIPH_DRIVER" --cpu Cortex-M3 --li --c99 -O0 --split_sections --diag_suppress=1 --diag_suppress=1295 -g -o ".\build\Target 1\.obj\User\main.o" --no_depend_system_headers --depend ".\build\Target 1\.obj\User\main.d" .\User\main.c
+   at unify_builder.Program.Main(String[] args_)
+---
+".\User\main.c", line 674: Error:  #65: expected a ";"
+  {
+  ^
+".\User\main.c", line 737: Warning:  #12-D: parsing restarts here after previous syntax error
+      g_angle_revolutions = g_encoder_wraparounds / 4;
+                                                     ^
+".\User\main.c", line 741: Error:  #20: identifier "raw" is undefined
+      uint32_t theta_temp = ((uint32_t)raw * 7U) & 0xFFFF;  // 位与等价于模65536
+                                       ^
+".\User\main.c", line 1111: Warning:  #223-D: function "Encoder_Get" declared implicitly
+          Encoder_Get();
+          ^
+".\User\main.c", line 86: Warning:  #550-D: variable "encoder_raw_cache"  was set but never used
+  static uint16_t encoder_raw_cache = 0;                 // 缓存上一次成功读取的编码器原始�? [0-16383] - I2C读取失败时返回此�?
+                  ^
+".\User\main.c", line 99: Warning:  #550-D: variable "g_encoder_wraparounds"  was set but never used
+  static int32_t g_encoder_wraparounds = 0;  // 编码器绕过的总次�? - 每次编码器经�?0�?(0�?16384转折)时计数，�?4�?=1圈电�?
+                 ^
+".\User\main.c", line 443: Warning:  #177-D: function "MT6701_ReadRegPair"  was declared but never referenced
+  static uint8_t MT6701_ReadRegPair(uint8_t reg, uint8_t *msb, uint8_t *lsb)
+                 ^
+.\User\main.c: 5 warnings, 2 errors
+
+[2026-02-13 22:26:24]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'c:\Users\JUNLI\Desktop\C_work\stm32\User\main.c': source file has been changed.
+
+[2026-02-13 22:26:25]	[done]
+	build successfully !
+
+[2026-02-13 22:33:50]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'c:\Users\JUNLI\Desktop\C_work\stm32\User\main.c': source file has been changed.
+
+[2026-02-13 22:33:50]	[done]
+	build successfully !
+
+[2026-02-13 22:34:54]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'c:\Users\JUNLI\Desktop\C_work\stm32\User\main.c': source file has been changed.
+
+[2026-02-13 22:34:54]	[done]
+	build successfully !
+
+[2026-02-13 22:47:02]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'c:\Users\JUNLI\Desktop\C_work\stm32\User\main.c': source file has been changed.
+
+[2026-02-13 22:47:03]	[done]
+	build successfully !
+
+[2026-02-13 22:48:48]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'c:\Users\JUNLI\Desktop\C_work\stm32\User\main.c': source file has been changed.
+
+[2026-02-13 22:48:49]	[done]
+	build successfully !
+
+[2026-02-13 22:51:00]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'c:\Users\JUNLI\Desktop\C_work\stm32\User\main.c': source file has been changed.
+
+[2026-02-13 22:51:00]	[done]
+	build successfully !
+
+[2026-02-13 22:51:05]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'c:\Users\JUNLI\Desktop\C_work\stm32\User\main.c': source file has been changed.
+
+[2026-02-13 22:51:06]	[done]
+	build successfully !
+
+[2026-02-13 22:54:02]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'c:\Users\JUNLI\Desktop\C_work\stm32\User\main.c': source file has been changed.
+
+[2026-02-13 22:54:02]	[done]
+	build successfully !
+
+[2026-02-13 23:00:07]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'c:\Users\JUNLI\Desktop\C_work\stm32\User\main.c': source file has been changed.
+
+[2026-02-13 23:00:07]	[done]
+	build successfully !
+
+[2026-02-13 23:00:29]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'c:\Users\JUNLI\Desktop\C_work\stm32\User\main.c': source file has been changed.
+
+[2026-02-13 23:00:30]	[done]
+	build successfully !
+
+[2026-02-13 23:03:23]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'c:\Users\JUNLI\Desktop\C_work\stm32\User\main.c': source file has been changed.
+
+[2026-02-13 23:03:23]	[done]
+	build successfully !
+
+[2026-02-23 00:00:15]	[info] incremental build: 31 source files changed
+These source files will be recompiled
+---
+'c:\Users\JUNLI\Desktop\C_work\stm32\Hideware\OLED.c': compiler options has been changed.
+'c:\Users\JUNLI\Desktop\C_work\stm32\Library\misc.c': compiler options has been changed.
+'c:\Users\JUNLI\Desktop\C_work\stm32\Library\stm32f10x_adc.c': compiler options has been changed.
+'c:\Users\JUNLI\Desktop\C_work\stm32\Library\stm32f10x_bkp.c': compiler options has been changed.
+'c:\Users\JUNLI\Desktop\C_work\stm32\Library\stm32f10x_can.c': compiler options has been changed.
+'c:\Users\JUNLI\Desktop\C_work\stm32\Library\stm32f10x_cec.c': compiler options has been changed.
+'c:\Users\JUNLI\Desktop\C_work\stm32\Library\stm32f10x_crc.c': compiler options has been changed.
+'c:\Users\JUNLI\Desktop\C_work\stm32\Library\stm32f10x_dac.c': compiler options has been changed.
+'c:\Users\JUNLI\Desktop\C_work\stm32\Library\stm32f10x_dbgmcu.c': compiler options has been changed.
+'c:\Users\JUNLI\Desktop\C_work\stm32\Library\stm32f10x_dma.c': compiler options has been changed.
+'c:\Users\JUNLI\Desktop\C_work\stm32\Library\stm32f10x_exti.c': compiler options has been changed.
+'c:\Users\JUNLI\Desktop\C_work\stm32\Library\stm32f10x_flash.c': compiler options has been changed.
+'c:\Users\JUNLI\Desktop\C_work\stm32\Library\stm32f10x_fsmc.c': compiler options has been changed.
+'c:\Users\JUNLI\Desktop\C_work\stm32\Library\stm32f10x_gpio.c': compiler options has been changed.
+'c:\Users\JUNLI\Desktop\C_work\stm32\Library\stm32f10x_i2c.c': compiler options has been changed.
+'c:\Users\JUNLI\Desktop\C_work\stm32\Library\stm32f10x_iwdg.c': compiler options has been changed.
+'c:\Users\JUNLI\Desktop\C_work\stm32\Library\stm32f10x_pwr.c': compiler options has been changed.
+'c:\Users\JUNLI\Desktop\C_work\stm32\Library\stm32f10x_rcc.c': compiler options has been changed.
+'c:\Users\JUNLI\Desktop\C_work\stm32\Library\stm32f10x_rtc.c': compiler options has been changed.
+'c:\Users\JUNLI\Desktop\C_work\stm32\Library\stm32f10x_sdio.c': compiler options has been changed.
+'c:\Users\JUNLI\Desktop\C_work\stm32\Library\stm32f10x_spi.c': compiler options has been changed.
+'c:\Users\JUNLI\Desktop\C_work\stm32\Library\stm32f10x_tim.c': compiler options has been changed.
+'c:\Users\JUNLI\Desktop\C_work\stm32\Library\stm32f10x_usart.c': compiler options has been changed.
+'c:\Users\JUNLI\Desktop\C_work\stm32\Library\stm32f10x_wwdg.c': compiler options has been changed.
+'c:\Users\JUNLI\Desktop\C_work\stm32\System\Delay.c': compiler options has been changed.
+'c:\Users\JUNLI\Desktop\C_work\stm32\System\Timer.c': compiler options has been changed.
+'c:\Users\JUNLI\Desktop\C_work\stm32\User\main.c': source file has been changed.
+'c:\Users\JUNLI\Desktop\C_work\stm32\User\stm32f10x_it.c': compiler options has been changed.
+'c:\Users\JUNLI\Desktop\C_work\stm32\start\core_cm3.c': compiler options has been changed.
+'c:\Users\JUNLI\Desktop\C_work\stm32\start\startup_stm32f10x_md.s': compiler options has been changed.
+'c:\Users\JUNLI\Desktop\C_work\stm32\start\system_stm32f10x.c': compiler options has been changed.
+
+[2026-02-23 00:00:17]	[done]
+	build successfully !
+
+[2026-02-24 11:36:50]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'c:\Users\JUNLI\Desktop\C_work\stm32\User\main.c': source file has been changed.
+
+[2026-02-24 11:36:50]	link failed !, exit code: 1
+   at unify_builder.Program.Main(String[] args_)
+---
+Error: L6218E: Undefined symbol Encoder_Init (referred from main.o).
+Not enough information to list image symbols.
+Finished: 1 information, 0 warning and 1 error messages.
+
+
+[2026-02-24 18:22:05]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'c:\Users\JUNLI\Desktop\C_work\stm32\User\main.c': source file has been changed.
+
+[2026-02-24 18:22:05]	compilation failed at : "c:\Users\JUNLI\Desktop\C_work\stm32\User\main.c", exit code: 1
+command: 
+  "D:\Keil_v5\ARM\ARMCC\bin\armcc.exe" -c --apcs=interwork -I. -Istart -IUser -ILibrary -ISystem -IListings -IHideware -I.cmsis/include -I"RTE/_Target 1" -D"USE_STDPERIPH_DRIVER" --cpu Cortex-M3 --li --c99 -O0 --split_sections --diag_suppress=1 --diag_suppress=1295 -g -o ".\build\Target 1\.obj\User\main.o" --no_depend_system_headers --depend ".\build\Target 1\.obj\User\main.d" .\User\main.c
+   at unify_builder.Program.Main(String[] args_)
+---
+".\User\main.c", line 691: Error:  #20: identifier "g_theta_filt_init" is undefined
+      g_theta_filt_init = 1;
+      ^
+.\User\main.c: 0 warnings, 1 error
+

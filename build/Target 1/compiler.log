@@ -1,7 +1,9 @@
 >>> cc
 
-
+".\User\main.c", line 691: Error:  #20: identifier "g_theta_filt_init" is undefined
+      g_theta_filt_init = 1;
+      ^
+.\User\main.c: 0 warnings, 1 error
 
 >>> ld
 
-Program Size: Code=10274 RO-data=2302 RW-data=128 ZI-data=1776  
