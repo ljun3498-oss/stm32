@@ -6,7 +6,7 @@
 /* ==================== Global Variables ==================== */
 
 // PWM Module Constants
-#define PWM_FREQ_KHZ       5
+#define PWM_FREQ_KHZ       20
 #define PWM_TIMER_CLK_HZ   72000000
 #define PWM_CENTER_ALIGNED 1
 #if PWM_CENTER_ALIGNED
@@ -22,18 +22,20 @@
 #define MT6701_ELEC_COUNTS     16384      // 编码器单圈计数 = 14bit精度
 #define MT6701_POLE_PAIRS      7          // 电机极对数：7对
 #define MT6701_I2C_TIMEOUT     40       // I2C超时计数（缩短以减少阻塞）
-#define THETA_FILT_SHIFT       1          // 电角度一阶滤波系数：1/2
+
 
 // FOC Module Constants
 #define Q15_SCALE       32768
 #define Q15_MULT(a, b)  ((int32_t)(a) * (int32_t)(b) >> 15)
+#define ID_REF_Q15      10           // 参考d电流（励磁，接近0）
+#define IQ_REF_Q15      1000        // 参考q电流（转矩，可根据负载调整）
 #define ANGLE_MAX       65536
 #define DEG_TO_ANGLE(deg)  ((uint16_t)((deg) * 65536L / 360))
 #define BUS_VOLTAGE_MV  12000        // 母线电压 12V
 #define MAX_CURRENT_MA  1500         // 额定电流 1.5A
 #define MAX_CURRENT_Q15 32767        // 1.5A对应的Q15值（最大值）
-#define KP_ID_Q15       2000         // 降低比例增益
-#define KI_ID_Q15       20           // 积分项设置为0
+#define KP_ID_Q15       200         // 降低比例增益
+#define KI_ID_Q15       20          // 积分项设置为0
 #define KP_IQ_Q15       4000         // 降低比例增益
 #define KI_IQ_Q15       20           // 积分项设置为0
 #define VOLT_MAX_Q15    26214        // 0.8 in Q15
@@ -1005,8 +1007,8 @@ void TIM2_IRQHandler(void)
         Vq_q15 = CLOSED_LOOP_VQ_TEST_Q15;
     #else
         // d轴参考值：应该接近0（只用于励磁）
-        int16_t Id_ref_q15 = 0;   // 参考d电流（待调试）
-        int16_t Iq_ref_q15 = 6000;  // 参考q电流（转矩，提高目标值）
+        int16_t Id_ref_q15 = ID_REF_Q15;   // 参考d电流（从宏定义获取，方便修改）
+        int16_t Iq_ref_q15 = IQ_REF_Q15;  // 参考q电流（从宏定义获取，方便修改）
         
         // PI控制：根据误差调节电压
         int16_t Id_err = Id_ref_q15 - Id_q15;

@@ -29,11 +29,11 @@ Project File Date:  02/08/2026
 *** Note: Rebuilding project, since 'Options->Output->Create Batch File' is selected.
 Rebuild target 'Target 1'
 compiling main.c...
-User\main.c(80): warning:  #550-D: variable "g_last_speed_accum"  was set but never used
+User\main.c(82): warning:  #550-D: variable "g_last_speed_accum"  was set but never used
   static int32_t g_last_speed_accum = 0;          // 上一次速度采样的累积�? - 用于计算增量以得到转�?
-User\main.c(81): warning:  #550-D: variable "g_last_speed_time"  was set but never used
+User\main.c(83): warning:  #550-D: variable "g_last_speed_time"  was set but never used
   static uint32_t g_last_speed_time = 0;          // 上一次速度采样的时刻（毫秒�?- 用于计算时间�?
-User\main.c(90): warning:  #177-D: variable "g_theta_elec_filt"  was declared but never referenced
+User\main.c(92): warning:  #177-D: variable "g_theta_elec_filt"  was declared but never referenced
   static uint16_t g_theta_elec_filt = 0;                 // 电角度滤波后的�? [0-65535]               // 电角度滤波初始化标志
 User\main.c: 3 warnings, 0 errors
 compiling stm32f10x_it.c...
@@ -67,7 +67,7 @@ compiling Delay.c...
 compiling Timer.c...
 compiling OLED.c...
 linking...
-Program Size: Code=9246 RO-data=2302 RW-data=116 ZI-data=1636  
+Program Size: Code=9242 RO-data=2302 RW-data=116 ZI-data=1636  
 FromELF: creating hex file...
 ".\Objects\First.axf" - 0 Error(s), 3 Warning(s).
 
@@ -83,7 +83,7 @@ Package Vendor: Keil
   d:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include
 
 <h2>Collection of Component Files used:</h2>
-Build Time Elapsed:  00:00:16
+Build Time Elapsed:  00:00:14
 </pre>
 </body>
 </html>
